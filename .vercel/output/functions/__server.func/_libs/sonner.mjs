@@ -1,5 +1,5 @@
 import { o as __toESM } from "../_runtime.mjs";
-import { f as require_react, u as require_react_dom } from "./@radix-ui/react-alert-dialog+[...].mjs";
+import { d as require_react_dom, q as require_react } from "./@tanstack/react-router+[...].mjs";
 //#region node_modules/sonner/dist/index.mjs
 var import_react = /* @__PURE__ */ __toESM(require_react(), 1);
 var import_react_dom = /* @__PURE__ */ __toESM(require_react_dom(), 1);

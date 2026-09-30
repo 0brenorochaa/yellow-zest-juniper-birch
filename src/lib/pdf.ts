@@ -32,7 +32,7 @@ export async function generatePdfReport(data: AppData): Promise<void> {
   });
   doc.setFont("helvetica", "normal");
   doc.setFontSize(11);
-  doc.text("Controle de Notas – Ano Letivo", pageWidth / 2, 21, { align: "center" });
+  doc.text("Breno notas · Controle de Notas – Ano Letivo", pageWidth / 2, 21, { align: "center" });
 
   doc.setTextColor(21, 32, 51);
   let y = 38;

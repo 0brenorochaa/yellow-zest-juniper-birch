@@ -107,11 +107,11 @@ export function CalculatorApp() {
               Ano letivo {student.year || new Date().getFullYear()}
             </p>
             <h1 className="font-display text-3xl leading-tight font-semibold tracking-tight sm:text-4xl">
-              Calculadora de Pontos para Aprovação
+              Breno notas
             </h1>
             <p className="mt-2 max-w-2xl text-sm text-primary-fg/80">
-              Meta de aprovação: {formatGrade(meta)} pontos · {bimesters} bimestres · máximo{" "}
-              {formatGrade(maxPerBimester)} por bimestre
+              Calculadora de pontos para aprovação · Meta {formatGrade(meta)} · {bimesters}{" "}
+              bimestres · máximo {formatGrade(maxPerBimester)} por bimestre
             </p>
           </div>
         </div>

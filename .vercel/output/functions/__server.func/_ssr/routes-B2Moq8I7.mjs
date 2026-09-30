@@ -1,11 +1,11 @@
 import { o as __toESM } from "../_runtime.mjs";
-import { a as Overlay2, c as Title2, d as require_jsx_runtime, f as require_react, i as Description2, l as Slot, n as Cancel, o as Portal2, r as Content2, s as Root2, t as Action } from "../_libs/@radix-ui/react-alert-dialog+[...].mjs";
+import { q as require_react, x as require_jsx_runtime } from "../_libs/@tanstack/react-router+[...].mjs";
 import { a as Printer, c as FileDown, d as BookOpen, i as RotateCcw, l as Eraser, n as Trash2, o as Plus, r as ShieldCheck, s as Pencil, u as Calculator } from "../_libs/lucide-react.mjs";
 import { n as toast, t as Toaster } from "../_libs/sonner.mjs";
 import { n as clsx, t as cva } from "../_libs/class-variance-authority+clsx.mjs";
 import { t as twMerge } from "../_libs/tailwind-merge.mjs";
 import { n as create, t as persist } from "../_libs/zustand.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/routes-W780xnSc.js
+//#region node_modules/.nitro/vite/services/ssr/assets/routes-B2Moq8I7.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function cn(...inputs) {
@@ -33,8 +33,9 @@ var buttonVariants = cva("inline-flex items-center justify-center gap-2 whitespa
 		size: "default"
 	}
 });
-function Button({ className, variant, size, asChild = false, ...props }) {
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(asChild ? Slot : "button", {
+function Button({ className, variant, size, type = "button", ...props }) {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+		type,
 		className: cn(buttonVariants({
 			variant,
 			size
@@ -43,41 +44,58 @@ function Button({ className, variant, size, asChild = false, ...props }) {
 	});
 }
 function ConfirmDialog({ open, title, description, confirmLabel, danger, onOpenChange, onConfirm }) {
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Root2, {
-		open,
-		onOpenChange,
-		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Portal2, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Overlay2, { className: "fixed inset-0 z-50 bg-ink/40" }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Content2, {
-			className: "fixed top-1/2 left-1/2 z-50 w-[min(100%-2rem,26rem)] -translate-x-1/2 -translate-y-1/2 rounded-xl bg-surface p-6 shadow-[var(--shadow-card)]",
+	(0, import_react.useEffect)(() => {
+		if (!open) return;
+		const onKey = (event) => {
+			if (event.key === "Escape") onOpenChange(false);
+		};
+		window.addEventListener("keydown", onKey);
+		return () => window.removeEventListener("keydown", onKey);
+	}, [open, onOpenChange]);
+	if (!open) return null;
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "fixed inset-0 z-50 flex items-center justify-center px-4",
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+			type: "button",
+			"aria-label": "Fechar",
+			className: "absolute inset-0 bg-ink/40",
+			onClick: () => onOpenChange(false)
+		}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			role: "alertdialog",
+			"aria-modal": "true",
+			"aria-labelledby": "confirm-title",
+			"aria-describedby": "confirm-desc",
+			className: "relative w-full max-w-md rounded-xl bg-surface p-6 shadow-[var(--shadow-card)]",
 			children: [
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Title2, {
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
+					id: "confirm-title",
 					className: "font-display text-xl font-semibold text-ink",
 					children: title
 				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Description2, {
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					id: "confirm-desc",
 					className: "mt-2 text-sm leading-normal text-muted",
 					children: description
 				}),
 				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 					className: "mt-6 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end",
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Cancel, {
-						asChild: true,
-						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
-							type: "button",
-							variant: "outline",
-							children: "Cancelar"
-						})
-					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Action, {
-						asChild: true,
-						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
-							type: "button",
-							variant: danger ? "danger" : "default",
-							onClick: onConfirm,
-							children: confirmLabel
-						})
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+						type: "button",
+						variant: "outline",
+						onClick: () => onOpenChange(false),
+						children: "Cancelar"
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+						type: "button",
+						variant: danger ? "danger" : "default",
+						onClick: () => {
+							onConfirm();
+							onOpenChange(false);
+						},
+						children: confirmLabel
 					})]
 				})
 			]
-		})] })
+		})]
 	});
 }
 function Input({ className, ...props }) {
@@ -648,7 +666,7 @@ async function generatePdfReport(data) {
 	doc.text("CÁLCULO DE PONTOS NECESSÁRIOS PARA APROVAÇÃO", pageWidth / 2, 12, { align: "center" });
 	doc.setFont("helvetica", "normal");
 	doc.setFontSize(11);
-	doc.text("Controle de Notas – Ano Letivo", pageWidth / 2, 21, { align: "center" });
+	doc.text("Breno notas · Controle de Notas – Ano Letivo", pageWidth / 2, 21, { align: "center" });
 	doc.setTextColor(21, 32, 51);
 	let y = 38;
 	doc.setFont("helvetica", "bold");
@@ -968,17 +986,17 @@ function CalculatorApp() {
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
 							className: "font-display text-3xl leading-tight font-semibold tracking-tight sm:text-4xl",
-							children: "Calculadora de Pontos para Aprovação"
+							children: "Breno notas"
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
 							className: "mt-2 max-w-2xl text-sm text-primary-fg/80",
 							children: [
-								"Meta de aprovação: ",
+								"Calculadora de pontos para aprovação · Meta ",
 								formatGrade(meta),
-								" pontos · ",
+								" · ",
 								bimesters,
-								" bimestres · máximo",
 								" ",
+								"bimestres · máximo ",
 								formatGrade(maxPerBimester),
 								" por bimestre"
 							]
